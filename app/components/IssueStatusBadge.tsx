@@ -14,8 +14,8 @@ interface Prop {
   status: Status;
 }
 
-const IssueStatusBagde = ({ status }: Prop) => {
+const IssueStatusBadge = ({ status }: Prop) => {
   return <Badge color={issueMap[status].color}>{issueMap[status].label}</Badge>;
 };
 
-export default IssueStatusBagde;
+export default IssueStatusBadge;
