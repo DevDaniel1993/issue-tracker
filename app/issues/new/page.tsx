@@ -15,7 +15,7 @@ import { z } from "zod";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
-const NewIssuePage = () => {
+const NewIssuePage = async () => {
   const [error, setError] = useState<string>();
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 

@@ -1,7 +1,6 @@
-import React from "react";
 import prisma from "../../../../prisma/client";
 import { notFound } from "next/navigation";
-import { Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import IssueStatusBagde from "@/app/components/IssueStatusBagde";
 import ReactMarkdown from "react-markdown";
 
@@ -17,7 +16,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
   if (!selectedIssue) notFound();
 
   return (
-    <div>
+    <Box>
       <Heading>{selectedIssue.title}</Heading>
       <Flex className="space-x-3" my="2">
         <IssueStatusBagde status={selectedIssue.status} />
@@ -26,7 +25,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
       <Card className="prose" mt="3">
         <ReactMarkdown>{selectedIssue.description}</ReactMarkdown>
       </Card>
-    </div>
+    </Box>
   );
 };
 
