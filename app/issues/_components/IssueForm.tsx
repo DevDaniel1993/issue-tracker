@@ -7,10 +7,10 @@ import { Issue } from "@prisma/client";
 import { Button, Callout, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
 
 interface Props {
@@ -18,10 +18,6 @@ interface Props {
 }
 
 type IssueFormData = z.infer<typeof issueSchema>;
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
 
 const IssueForm = ({ issue }: Props) => {
   const [error, setError] = useState<string>();
@@ -71,7 +67,9 @@ const IssueForm = ({ issue }: Props) => {
           name="description"
           control={control}
           defaultValue={issue?.description}
-          render={({ field }) => <SimpleMDE key={1} {...field} />}
+          render={({ field }) => (
+            <SimpleMDE placeholder="Description" {...field} />
+          )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
