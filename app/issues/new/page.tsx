@@ -6,15 +6,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Callout, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
-const NewIssuePage = async () => {
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
+
+const NewIssuePage = () => {
   const [error, setError] = useState<string>();
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
@@ -55,9 +59,7 @@ const NewIssuePage = async () => {
         <Controller
           name="description"
           control={control}
-          render={({ field }) => (
-            <SimpleMDE placeholder="Description" {...field} />
-          )}
+          render={({ field }) => <SimpleMDE key={1} {...field} />}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
