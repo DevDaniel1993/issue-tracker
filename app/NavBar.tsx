@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
-import Skeleton from "react-loading-skeleton";
+import Skeleton from "@/app/components/Sketeton";
 
 interface Link {
   label: string;

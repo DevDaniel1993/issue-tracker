@@ -1,4 +1,6 @@
+import authOption from "@/app/auth/authOptions";
 import { issueSchema } from "@/app/validationSchemas";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 
@@ -10,6 +12,13 @@ export const PATCH = async (
   request: NextRequest,
   { params: { id } }: Props
 ) => {
+  const session = await getServerSession(authOption);
+  if (!session)
+    return NextResponse.json(
+      { error: "You haven't logged in yet" },
+      { status: 401 }
+    );
+
   const body = await request.json();
 
   const validation = issueSchema.safeParse(body);
@@ -36,6 +45,13 @@ export const DELETE = async (
   request: NextRequest,
   { params: { id } }: Props
 ) => {
+  const session = await getServerSession(authOption);
+  if (!session)
+    return NextResponse.json(
+      { error: "You haven't logged in yet" },
+      { status: 401 }
+    );
+
   const issue = await prisma.issue.findUnique({ where: { id: parseInt(id) } });
 
   if (!issue)
