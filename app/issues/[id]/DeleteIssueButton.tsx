@@ -31,7 +31,7 @@ const DeleteIssueButton = ({ selectedIssueId }: Props) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red" disabled={isDeleting}>
+          <Button className="!cursor-pointer" color="red" disabled={isDeleting}>
             Delete Issue
             {isDeleting && <Spinner />}
           </Button>
@@ -44,12 +44,16 @@ const DeleteIssueButton = ({ selectedIssueId }: Props) => {
           </AlertDialog.Description>
           <Flex gap="3" mt="4">
             <AlertDialog.Cancel>
-              <Button variant="soft" color="gray">
+              <Button className="!cursor-pointer" variant="soft" color="gray">
                 Cancel
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button color="red" onClick={deleteIssue}>
+              <Button
+                className="!cursor-pointer"
+                color="red"
+                onClick={deleteIssue}
+              >
                 Delete Issue
               </Button>
             </AlertDialog.Action>
@@ -67,6 +71,7 @@ const DeleteIssueButton = ({ selectedIssueId }: Props) => {
           </AlertDialog.Description>
           <AlertDialog.Cancel>
             <Button
+              className="!cursor-pointer"
               mt="2"
               variant="soft"
               color="gray"
