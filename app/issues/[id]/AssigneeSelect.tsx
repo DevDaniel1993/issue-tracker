@@ -12,32 +12,27 @@ interface Props {
 }
 
 const AssigneeSelect = ({ issue }: Props) => {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: () => axios.get("/api/users").then((res) => res.data),
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   if (isLoading) return <Skeleton />;
 
   if (error) return null;
 
+  const handleAssignChange = (userId: string) => {
+    axios
+      .patch(`/api/issues/${issue.id}`, {
+        assignedToUserId: userId || null,
+      })
+      .catch(() => {
+        toast.error("Changes could not be saved");
+      });
+  };
+
   return (
     <>
       <Select.Root
         defaultValue={issue.assignedToUserId || null}
-        onValueChange={(userId: string) => {
-          axios
-            .patch(`/api/issues/${issue.id}`, {
-              assignedToUserId: userId || null,
-            })
-            .catch(() => {
-              toast.error("Changes could not be saved");
-            });
-        }}
+        onValueChange={handleAssignChange}
       >
         <Select.Trigger placeholder="Assign..." />
         <Select.Content>
@@ -56,5 +51,11 @@ const AssigneeSelect = ({ issue }: Props) => {
     </>
   );
 };
+
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+  });
 
 export default AssigneeSelect;
