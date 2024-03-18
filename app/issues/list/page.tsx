@@ -2,9 +2,20 @@ import { Table } from "@radix-ui/themes";
 import prisma from "../../../../prisma/client";
 import { Link, IssueStatusBadge } from "@/app/components";
 import ActionToolbar from "./ActionToolbar";
+import { Status } from "@prisma/client";
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
+interface Props {
+  searchParams: { status: Status };
+}
+
+const IssuesPage = async ({
+  searchParams: { status: selectedStatus },
+}: Props) => {
+  const statuses = Object.values(Status);
+  const status = statuses.includes(selectedStatus) ? selectedStatus : undefined;
+  const issues = await prisma.issue.findMany({
+    where: { status },
+  });
 
   return (
     <div>
