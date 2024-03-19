@@ -1,17 +1,22 @@
-import { Table } from "@radix-ui/themes";
-import prisma from "../../../../prisma/client";
-import { IssueStatusBadge } from "@/app/components";
-import ActionToolbar from "./ActionToolbar";
+import { IssueStatusBadge, Pagination } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
-import Link from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { Table } from "@radix-ui/themes";
+import NextLink from "next/link";
+import Link from "@/app/components/Link";
+import prisma from "../../../../prisma/client";
+import ActionToolbar from "./ActionToolbar";
 
 interface Props {
-  searchParams: { status: Status; orderBy: keyof Issue };
+  searchParams: { page: string; status: Status; orderBy: keyof Issue };
 }
 
 const IssuesPage = async ({
-  searchParams: { status: selectedStatus, orderBy: selectedOrder },
+  searchParams: {
+    status: selectedStatus,
+    orderBy: selectedOrder,
+    page: pageNumber,
+  },
 }: Props) => {
   const columns: { label: string; value: keyof Issue; className?: string }[] = [
     { label: "Issue", value: "title" },
@@ -21,21 +26,29 @@ const IssuesPage = async ({
 
   const statuses = Object.values(Status);
   const status = statuses.includes(selectedStatus) ? selectedStatus : undefined;
+  const where = { status };
 
   const orderBy = columns.map((column) => column.value).includes(selectedOrder)
     ? { [selectedOrder]: "asc" }
     : undefined;
 
+  const page: number = parseInt(pageNumber) || 1;
+  const pageSize: number = 10;
+
   const issues = await prisma.issue.findMany({
-    where: { status },
+    where,
     orderBy,
+    skip: (page - 1) * pageSize,
+    take: pageSize,
   });
+
+  const issueCount = await prisma.issue.count({ where });
 
   return (
     <div>
       <ActionToolbar />
 
-      <Table.Root variant="surface">
+      <Table.Root variant="surface" mb="3">
         <Table.Header>
           <Table.Row>
             {columns.map((column) => (
@@ -43,13 +56,13 @@ const IssuesPage = async ({
                 key={column.value}
                 className={column.className}
               >
-                <Link
+                <NextLink
                   href={{
                     query: { status: selectedStatus, orderBy: column.value },
                   }}
                 >
                   {column.label}
-                </Link>
+                </NextLink>
                 {selectedOrder === column.value && (
                   <ArrowUpIcon className="inline" />
                 )}
@@ -76,6 +89,12 @@ const IssuesPage = async ({
           ))}
         </Table.Body>
       </Table.Root>
+
+      <Pagination
+        currentPage={page}
+        itemCount={issueCount}
+        pageSize={pageSize}
+      />
     </div>
   );
 };
