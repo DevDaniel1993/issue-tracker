@@ -1,4 +1,5 @@
 import prisma from "../../prisma/client";
+import PieChartComponent from "./IssueCharts";
 import IssueSummery from "./IssueSummery";
 
 export default async function Home() {
@@ -16,6 +17,11 @@ export default async function Home() {
         open={openIssues}
         inProgress={inProgressIssues}
         closed={closedIssues}
+      />
+      <PieChartComponent
+        openIssues={openIssues}
+        inProgressIssues={inProgressIssues}
+        closedIssues={closedIssues}
       />
     </>
   );

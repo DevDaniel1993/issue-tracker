@@ -22,7 +22,7 @@ const IssueSummery = async ({ closed, inProgress, open }: Props) => {
   return (
     <Flex gap="4">
       {containers.map((container) => (
-        <Card>
+        <Card key={container.label}>
           <Flex direction="column">
             <Link
               className="text-sm font-medium"
