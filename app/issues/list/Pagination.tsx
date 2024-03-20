@@ -35,6 +35,7 @@ const Pagination = ({ currentPage, itemCount, pageSize }: Props) => {
       </Text>
 
       <Button
+        className={currentPage !== 1 && "!cursor-pointer"}
         onClick={() => changePage(1)}
         variant="soft"
         color="gray"
@@ -44,6 +45,7 @@ const Pagination = ({ currentPage, itemCount, pageSize }: Props) => {
       </Button>
 
       <Button
+        className={currentPage !== 1 && "!cursor-pointer"}
         onClick={() => changePage(currentPage - 1)}
         variant="soft"
         color="gray"
@@ -53,6 +55,7 @@ const Pagination = ({ currentPage, itemCount, pageSize }: Props) => {
       </Button>
 
       <Button
+        className={currentPage !== pageCount && "!cursor-pointer"}
         onClick={() => changePage(currentPage + 1)}
         variant="soft"
         color="gray"
@@ -62,6 +65,7 @@ const Pagination = ({ currentPage, itemCount, pageSize }: Props) => {
       </Button>
 
       <Button
+        className={currentPage !== pageCount && "!cursor-pointer"}
         onClick={() => changePage(pageCount)}
         variant="soft"
         color="gray"
