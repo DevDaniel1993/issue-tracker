@@ -1,7 +1,7 @@
 "use client";
 
-import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
+import { Pie } from "react-chartjs-2";
 
 interface Props {
   openIssues: number;
@@ -9,11 +9,7 @@ interface Props {
   closedIssues: number;
 }
 
-const PieChartComponent = ({
-  openIssues,
-  inProgressIssues,
-  closedIssues,
-}: Props) => {
+const IssueCharts = ({ openIssues, inProgressIssues, closedIssues }: Props) => {
   const data = {
     labels: ["Open Issues", "In-Progress Issues", "Closed Issues"],
     datasets: [
@@ -30,4 +26,4 @@ const PieChartComponent = ({
   return <Pie data={data} />;
 };
 
-export default PieChartComponent;
+export default IssueCharts;

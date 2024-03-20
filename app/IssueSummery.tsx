@@ -22,19 +22,19 @@ const IssueSummery = async ({ closed, inProgress, open }: Props) => {
   return (
     <Flex gap="4">
       {containers.map((container) => (
-        <Card key={container.label}>
-          <Flex direction="column">
-            <Link
-              className="text-sm font-medium"
-              href={`/issues/list?status=${container.status}`}
-            >
+        <Link
+          className="text-sm font-medium"
+          href={`/issues/list?status=${container.status}`}
+        >
+          <Card key={container.label}>
+            <Flex direction="column">
               {container.label}
-            </Link>
-            <Text size="5" className="font-bold">
-              {container.issueCount}
-            </Text>
-          </Flex>
-        </Card>
+              <Text size="5" className="font-bold">
+                {container.issueCount}
+              </Text>
+            </Flex>
+          </Card>
+        </Link>
       ))}
     </Flex>
   );
