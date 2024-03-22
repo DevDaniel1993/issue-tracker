@@ -26,7 +26,10 @@ const IssueSummery = async ({ closed, inProgress, open }: Props) => {
           className="text-sm font-medium"
           href={`/issues/list?status=${container.status}`}
         >
-          <Card key={container.label}>
+          <Card
+            className="hover:shadow-md hover:transition-all"
+            key={container.label}
+          >
             <Flex direction="column">
               {container.label}
               <Text size="5" className="font-bold">
