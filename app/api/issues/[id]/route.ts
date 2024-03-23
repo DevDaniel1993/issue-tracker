@@ -20,7 +20,7 @@ export const PATCH = async (
   //   );
 
   const body = await request.json();
-  const { title, description, assignedToUserId } = body;
+  const { title, description, assignedToUserId, status } = body;
 
   const validation = patchIssueSchema.safeParse(body);
 
@@ -45,7 +45,7 @@ export const PATCH = async (
 
   const updatedIssue = await prisma.issue.update({
     where: { id: parseInt(id) },
-    data: { title, description, assignedToUserId },
+    data: { title, description, assignedToUserId, status },
   });
 
   return NextResponse.json(updatedIssue);
