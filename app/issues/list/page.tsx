@@ -59,6 +59,8 @@ const IssuesPage = async ({
   );
 };
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Issue Tracker - Issue List",
   description: "Here is a list of all issues",

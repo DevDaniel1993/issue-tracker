@@ -23,6 +23,7 @@ const IssueSummery = async ({ closed, inProgress, open }: Props) => {
     <Flex gap="4">
       {containers.map((container) => (
         <Link
+          key={container.label}
           className="text-sm font-medium"
           href={`/issues/list?status=${container.status}`}
         >
