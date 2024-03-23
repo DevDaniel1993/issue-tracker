@@ -5,6 +5,7 @@ import { Issue, User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const AssigneeSelect = ({ issue }: Props) => {
+  const router = useRouter();
   const { data: users, error, isLoading } = useUsers();
 
   if (isLoading) return <Skeleton />;
@@ -26,6 +28,8 @@ const AssigneeSelect = ({ issue }: Props) => {
       .catch(() => {
         toast.error("Changes could not be saved");
       });
+    router.push("/");
+    router.refresh();
   };
 
   return (

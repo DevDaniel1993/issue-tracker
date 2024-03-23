@@ -1,10 +1,9 @@
 import { Pagination } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
+import { Flex } from "@radix-ui/themes";
 import prisma from "../../../../prisma/client";
 import ActionToolbar from "./ActionToolbar";
 import IssueTable, { columnName } from "./IssueTable";
-import { useSearchParams } from "next/navigation";
-import { Flex } from "@radix-ui/themes";
 
 interface Props {
   searchParams: { page: string; status: Status; orderBy: keyof Issue };

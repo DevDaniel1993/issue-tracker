@@ -52,6 +52,4 @@ const StatusSelect = ({ selectedIssue }: Props) => {
   );
 };
 
-// export const dynamic = "force-dynamic";
-
 export default StatusSelect;
