@@ -2,13 +2,13 @@ import authOption from "@/app/auth/authOptions";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import prisma from "../../../../prisma/client";
 import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import StatusSelect from "./StatusSelect";
-import { cache } from "react";
 
 interface Props {
   params: { id: string };
