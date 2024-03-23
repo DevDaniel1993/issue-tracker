@@ -13,7 +13,16 @@ interface Props {
 const columns: { label: string; value: keyof Issue; className?: string }[] = [
   { label: "Issue", value: "title" },
   { label: "Status", value: "status", className: "hidden md:table-cell" },
-  { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
+  {
+    label: "Created At",
+    value: "createdAt",
+    className: "hidden md:table-cell",
+  },
+  {
+    label: "Last Update",
+    value: "updatedAt",
+    className: "hidden md:table-cell",
+  },
 ];
 
 export const columnName = columns.map((column) => column.value);
@@ -59,6 +68,9 @@ const IssueTable = ({
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
               {issue.createdAt.toDateString()}
+            </Table.Cell>
+            <Table.Cell className="hidden md:table-cell">
+              {issue.updatedAt.toDateString()}
             </Table.Cell>
           </Table.Row>
         ))}
