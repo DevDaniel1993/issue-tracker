@@ -14,9 +14,7 @@ interface Props {
 
 const AssigneeSelect = ({ issue }: Props) => {
   const router = useRouter();
-  const { data: users, error, isLoading } = useUsers();
-
-  if (isLoading) return <Skeleton />;
+  const { data: users, error } = useUsers();
 
   if (error) return null;
 

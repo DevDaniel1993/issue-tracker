@@ -18,20 +18,22 @@ const StatusSelect = ({ selectedIssue }: Props) => {
     { label: "Closed", value: "CLOSED" },
   ];
 
+  const handleChange = (seletcedStatus: string) => {
+    try {
+      axios.patch(`/api/issues/${selectedIssue.id}`, {
+        status: seletcedStatus,
+      });
+      router.push("/issues/list");
+      router.refresh();
+    } catch (error) {
+      toast.error("Changes could not be saved");
+    }
+  };
+
   return (
     <>
       <Select.Root
-        onValueChange={(seletcedStatus: string) => {
-          try {
-            axios.patch(`/api/issues/${selectedIssue.id}`, {
-              status: seletcedStatus,
-            });
-            router.push("/issues/list");
-            router.refresh();
-          } catch (error) {
-            toast.error("Changes could not be saved");
-          }
-        }}
+        onValueChange={handleChange}
         defaultValue={selectedIssue.status || "Select a status"}
       >
         <Select.Trigger placeholder="Select the status..." />
@@ -46,6 +48,7 @@ const StatusSelect = ({ selectedIssue }: Props) => {
           </Select.Group>
         </Select.Content>
       </Select.Root>
+
       <Toaster />
     </>
   );
