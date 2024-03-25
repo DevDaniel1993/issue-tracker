@@ -46,7 +46,6 @@ const IssuesPage = async ({
         searchParams={{
           status: selectedStatus,
           orderBy: selectedOrder,
-          page: pageNumber,
         }}
       />
 

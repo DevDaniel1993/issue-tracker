@@ -7,7 +7,7 @@ import NextLink from "next/link";
 import { Issue, Status } from "@prisma/client";
 
 interface Props {
-  searchParams: { page: string; status: Status; orderBy: keyof Issue };
+  searchParams: { status: Status; orderBy: keyof Issue };
   issues: Issue[];
 }
 const columns: { label: string; value: keyof Issue; className?: string }[] = [
